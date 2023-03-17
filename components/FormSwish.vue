@@ -85,14 +85,14 @@ const imgWrapper = ref(null);
 const { getQRCode, createImageFromBlob, downloadImage } = useQR();
 
 const createQRCode = async () => {
-  const blob = await getQRCode( "https://api-proxy.swish.nu/qrg-swish/api/v1/prefilled", {
+  const blob = await getQRCode( "https://api.swish.nu/qr/v2/prefilled", {
     size: 500,
     border: 1,
     transparent: true,
     title: { value: form.title || 'testtitle' },
-    payee: { value: form.payee || '0703466533' },
-    amount: { value: parseFloat(form.amount) || 100, editable: form.lockedAmount },
-    message: { value: form.message || 'testmess', editable: form.lockedMessage },
+    payee: form.payee || '0703466533',
+    amount: { value: parseFloat(form.amount) || 100, editable: !form.lockedAmount },
+    message: { value: form.message || 'testmess', editable: !form.lockedMessage },
     format: 'png'
   });
   const swishImageEl = await createImageFromBlob(blob);
