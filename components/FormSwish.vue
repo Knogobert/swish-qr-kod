@@ -1,5 +1,5 @@
 <template>
-  <form class="grid grid-cols-2 gap-4 md:gap-8 w-full text-slate-100">
+  <form class="grid md:grid-cols-2 gap-4 md:gap-8 w-full text-slate-100">
     <div class="column inputs">
       <div class="input-group">
         <div class="title-section">
@@ -153,7 +153,7 @@ onMounted(createQRCode);
       @apply block;
     }
     span {
-      @apply text-slate-500;
+      @apply text-slate-500 text-sm;
     }
   }
 }
