@@ -53,12 +53,12 @@
           type="button"
           class="button flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
           @click="createQRCode"
-        >Create QR code</button>
+        >Generera QR-kod</button>
         <button
           type="button"
           class="button flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-          @click="downloadImage(imgWrapper?.children?.[0]?.src)"
-        >Download as PNG</button>
+          @click="downloadImage(imgWrapper?.children?.[0]?.src, form.payee)"
+        >Ladda ner som PNG</button>
       </div>
     </div>
     <div class="column qr-code">

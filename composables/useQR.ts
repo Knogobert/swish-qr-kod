@@ -12,30 +12,45 @@ export function useQR() {
     return res.blob()
   }
 
+  function blobToBase64(blob) {
+    return new Promise((resolve, _) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      console.log('blob:', blob)
+      reader.readAsDataURL(blob);
+      console.log('reader:', reader)
+      return reader.result;
+    });
+  }
+
   async function createImageFromBlob(blob) {
     const img = new Image()
-    img.src = URL.createObjectURL(blob)
+    img.src = await blobToBase64(blob);
+    img.download = "swish-qr-kod.png";
+    // img.src = URL.createObjectURL(blob)
 
-    // newer promise based version of img.onload
-    await img.decode()
+    // // newer promise based version of img.onload
+    // await img.decode()
 
-    // Don't forget to revoke the blob url when
-    // you no longer need it (to release memory)
-    URL.revokeObjectURL(img.src)
+    // // Don't forget to revoke the blob url when
+    // // you no longer need it (to release memory)
+    // URL.revokeObjectURL(img.src)
 
     return img
   }
 
-  function downloadImage(imgSrc) {
+  function downloadImage(imgSrc = '', payee = '') {
     console.log('imgSrc:', imgSrc)
     if (!imgSrc) return;
 
+    const payeeNum = payee ? `-${payee}` : '';
     const a = document.createElement("a");
-    document.body.appendChild(a);
     a.style = "display: none";
     a.href = imgSrc;
-    a.download = "test";
+    a.download = `swish-qr-kod${payeeNum}.png`;
+    document.body.appendChild(a);
     a.click();
+    // document.body.removeChild(a);
   }
 
   return {
